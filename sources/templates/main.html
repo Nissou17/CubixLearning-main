@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubixLearning - Accueil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
+    
+    <script>
+        function searchGoogle() {
+            const searchInput = document.getElementById('search-input').value;
+            if (searchInput.trim() !== '') {
+                window.open('https://www.google.com/search?q=' + encodeURIComponent(searchInput), '_blank');
+            } else {
+                alert('Veuillez entrer un terme de recherche');
+            }
+        }
+        function handleSearchEnter(event) {
+            if (event.key === 'Enter') {
+                searchGoogle();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-zone">
+        <header>
+            <h1>Bienvenue chez CubixLearning</h1> 
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Rechercher via Google..." onkeypress="handleSearchEnter(event)">
+                <button class="SearchBtn" onclick="searchGoogle()">🍀​</button>
+            </div>
+        </header>
+
+        <div class="secondary-zone">
+        
+            <section id="menu">
+                <nav>
+                    <ul>
+                        <li><a href="">Compte</a></li>
+                        <li><a href="#courses">Cours</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="">Langues</a></li>
+                        <li><a href="">Taille Texte</a></li>
+                    </ul>
+                </nav>
+            </section>
+
+            <div class="third-zone">
+
+                    <section id="about">
+                        <h2>À propos de CubixLearning</h2>
+                        <p>Bienvenue. Ce site a été conçu pour vous aider à mieux comprendre et utiliser le numérique au quotidien, 
+                            pas à pas et sans stress. Ici, vous apprenez à réaliser des actions concrètes (envoyer un document, 
+                            reconnaître un message suspect, utiliser un service en ligne), avec des explications simples et un accompagnement permanent. 
+                            Vous pouvez prendre votre temps, recommencer autant que nécessaire, et vous faire aider à chaque étape.
+                        </p>
+                    </section>
+
+                    <div class="cards-container">
+                        <a href="/Page1.html" class="card-link">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='images/6b9bf36bcc6f4192f94fb354e2e0bf2d.jpg') }}" alt="Smartphone" class="card-icon">
+                                <h4>1 - Enseignement orienté smartphone</h4>
+                            </div>
+                        </a>
+                        
+                        <a href="/Page2.html" class="card-link">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='images/ab6c7ecf5313d1e07c3d6495d468e6ca.jpg') }}" alt="Ordinateur" class="card-icon">
+                                <h4>2 - Enseignement orienté ordinateur</h4>
+                            </div>
+                        </a>
+
+                        <a href="/Page3.html" class="card-link">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='images/286231b2a6f478e8032b32a4339cc19d.jpg') }}" alt="Dépannage" class="card-icon">
+                                <h4>3 - Comment dépanner des petits problèmes techniques ?</h4>
+                            </div>
+                        </a>
+
+                        <a href="/Page4.html" class="card-link">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='images/1a3e483836f07bbc7357bcec88d1bd08.jpg') }}" alt="Sécurité" class="card-icon">
+                                <h4>4 - Comment ne pas se faire arnaquer en ligne ?</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                <section id="contact">
+                    <h2>Contactez-nous</h2>
+                    <p>Pour toute question ou demande, n'hésitez pas à nous contacter.
+                        Contactez-nous à l'adresse email : cubixlearningdev@gmail.com
+                    </p>
+                </section>
+
+                <footer>
+                    <p>&copy; 2026 CubixLearning. Tous droits réservés.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

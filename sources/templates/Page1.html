@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubixLearning - Accueil</title>
+    <link rel="stylesheet" href="../style/styles.css">
+    <script>
+        function searchGoogle() {
+            const searchInput = document.getElementById('search-input').value;
+            if (searchInput.trim() !== '') {
+                window.open('https://www.google.com/search?q=' + encodeURIComponent(searchInput), '_blank');
+            } else {
+                alert('Veuillez entrer un terme de recherche');
+            }
+        }
+        function handleSearchEnter(event) {
+            if (event.key === 'Enter') {
+                searchGoogle();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-zone">
+        <header>
+            <h1>Bienvenue chez CubixLearning</h1> 
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Rechercher via Google..." onkeypress="handleSearchEnter(event)">
+                <button class="SearchBtn" onclick="searchGoogle()">🍀​</button>
+            </div>
+        </header>
+
+        <div class="secondary-zone">
+        
+            <section id="menu">
+                <nav>
+                    <ul>
+                        
+                        <li><a href="">Compte</a></li>
+                        <li><a href="#courses">Cours</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="">Langues</a></li>
+                        <li><a href="">Taille Texte</a></li>
+                    </ul>
+                </nav>
+            </section>
+
+            <div class="third-zone">
+
+                
+
+                <section id="contact">
+                    <h2>Contactez-nous</h2>
+                    <p>Pour toute question ou demande, n'hésitez pas à nous contacter.
+                        Contactez-nous à l'adresse email : cubixlearningdev@gmail.com
+                    </p>
+                </section>
+
+                <footer>
+                    <p>&copy; 2026 CubixLearning. Tous droits réservés.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
