@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Services en ligne</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
+    <style>
+        .quiz-container { display: none; background: white; color: black; padding: 20px; border-radius: 15px; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .option { display: block; background: #fff5e6; margin: 10px 0; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; border: 1px solid #f39c12; }
+        .option:hover { background: #f39c12; color: white; transform: scale(1.02); }
+        .btn-quiz { background: #f39c12; color: white; padding: 20px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.2em; margin: 20px; }
+    </style>
+</head>
+<body>
+    <div class="main-zone">
+        <div class="secondary-zone">
+            <div class="third-zone" style="text-align: center;">
+                <h1>🛠️ Services & Internet</h1>
+                <p>Apprenez à gérer vos rendez-vous et vos réglages.</p>
+
+                <button class="btn-quiz" onclick="startQuiz()">🚀 Lancer le Quiz Services</button>
+
+                <div id="quiz" class="quiz-container">
+                    <div id="question-text" style="font-weight: bold; font-size: 1.1em; margin-bottom: 15px; color: #2c3e50;"></div>
+                    <div id="options"></div>
+                    <p id="feedback" style="margin-top:15px; font-weight:bold;"></p>
+                </div>
+
+                <div style="margin-top: 30px;"><a href="/" style="color: white; text-decoration: none;">⬅ Retour à l'accueil</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "On vous dit de prendre rendez-vous chez le médecin sur Internet. Quel site utilisez-vous ?", options: ["Facebook", "Doctolib ou le site du cabinet", "Google Maps"], correct: 1 },
+            { q: "Votre mot de passe Wi-Fi est trop long. Pouvez-vous le simplifier ?", options: ["Oui, via l'interface de gestion de la Box", "Non, c'est interdit par le fournisseur", "Il faut racheter une nouvelle Box"], correct: 0 }
+        ];
+        let currentQ = 0;
+        function startQuiz() { document.querySelector('.btn-quiz').style.display = 'none'; document.getElementById('quiz').style.display = 'block'; showQuestion(); }
+        function showQuestion() {
+            const q = questions[currentQ]; document.getElementById('question-text').innerText = q.q;
+            const optionsDiv = document.getElementById('options'); optionsDiv.innerHTML = '';
+            q.options.forEach((opt, i) => { const b = document.createElement('div'); b.className = 'option'; b.innerText = opt; b.onclick = () => check(i); optionsDiv.appendChild(b); });
+        }
+        function check(i) {
+            const f = document.getElementById('feedback');
+            if(i === questions[currentQ].correct) { f.innerText = "✅ Bravo !"; f.style.color = "green"; currentQ++; 
+                if(currentQ < questions.length) { setTimeout(() => { f.innerText = ""; showQuestion(); }, 1000); }
+                else { document.getElementById('quiz').innerHTML = "<h2>🎉 Quiz Services Terminé !</h2>"; }
+            } else { f.innerText = "❌ Réessayez !"; f.style.color = "red"; }
+        }
+    </script>
+</body>
+</html>

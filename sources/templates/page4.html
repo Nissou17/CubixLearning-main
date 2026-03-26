@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Sécurité</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
+    <style>
+        .quiz-container { display: none; background: white; color: black; padding: 20px; border-radius: 15px; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .option { display: block; background: #ffebeb; margin: 10px 0; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; border: 1px solid #e74c3c; }
+        .option:hover { background: #e74c3c; color: white; transform: scale(1.02); }
+        .btn-quiz { background: #e74c3c; color: white; padding: 20px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.2em; margin: 20px; }
+    </style>
+</head>
+<body>
+    <div class="main-zone">
+        <div class="secondary-zone">
+            <div class="third-zone" style="text-align: center;">
+                <h1>🛡️ Sécurité Numérique</h1>
+                <p>Apprenez à vous protéger des arnaques et dangers.</p>
+
+                <button class="btn-quiz" onclick="startQuiz()">🚀 Lancer le Quiz Sécurité</button>
+
+                <div id="quiz" class="quiz-container">
+                    <div id="question-text" style="font-weight: bold; font-size: 1.1em; margin-bottom: 15px; color: #2c3e50;"></div>
+                    <div id="options"></div>
+                    <p id="feedback" style="margin-top:15px; font-weight:bold;"></p>
+                </div>
+
+                <div style="margin-top: 30px;"><a href="/" style="color: white; text-decoration: none;">⬅ Retour à l'accueil</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Lequel de ces mots de passe est le plus sécurisé ?", options: ["123456", "MonPrenom75", "CubiX!2024?_9"], correct: 2 },
+            { q: "Un message 'urgent' d'un ami vous demande de l'argent vite par SMS. Que faites-vous ?", options: ["Je paye tout de suite", "J'appelle mon ami sur son numéro habituel pour vérifier", "Je donne mes codes de carte"], correct: 1 },
+            { q: "Comment faire une recherche Google vraiment efficace ?", options: ["Cliquer sur le premier lien de pub", "Vérifier plusieurs sources et comparer les résultats", "Lire seulement le titre sans cliquer"], correct: 1 }
+        ];
+        let currentQ = 0;
+        function startQuiz() { document.querySelector('.btn-quiz').style.display = 'none'; document.getElementById('quiz').style.display = 'block'; showQuestion(); }
+        function showQuestion() {
+            const q = questions[currentQ]; document.getElementById('question-text').innerText = q.q;
+            const optionsDiv = document.getElementById('options'); optionsDiv.innerHTML = '';
+            q.options.forEach((opt, i) => { const b = document.createElement('div'); b.className = 'option'; b.innerText = opt; b.onclick = () => check(i); optionsDiv.appendChild(b); });
+        }
+        function check(i) {
+            const f = document.getElementById('feedback');
+            if(i === questions[currentQ].correct) { f.innerText = "✅ Bravo !"; f.style.color = "green"; currentQ++; 
+                if(currentQ < questions.length) { setTimeout(() => { f.innerText = ""; showQuestion(); }, 1000); }
+                else { document.getElementById('quiz').innerHTML = "<h2>🎉 Quiz Sécurité Terminé !</h2>"; }
+            } else { f.innerText = "❌ Réessayez !"; f.style.color = "red"; }
+        }
+    </script>
+</body>
+</html>

@@ -6,9 +6,20 @@ app = Flask(__name__)
 def index():
     return render_template('main.html')
 
-@app.route('/connect/<int:connect_id>')
-def connect(connect_id):
-    return render_template("main.html", connect_id=connect_id)
+@app.route('/page1')
+def page1():
+    return render_template('page1.html')
 
+@app.route('/page2')
+def page2():
+    return render_template('page2.html')
+
+@app.route('/page3')
+def page3():
+    return render_template('page3.html')
+
+@app.route('/page4')
+def page4():
+    return render_template('page4.html')
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, port=5000)
