@@ -19,10 +19,14 @@ On a choisi ce sujet notamment parce que de nos jours, tout s'informatise et qu'
 
 Cette section est cruciale pour le jury. Expliquez comment vous avez utilisé le programme de NSI :
 
-- **Langages & Libs :** Python, CSS 
-- **Structures de données :**HTML, Flask
-- **Concepts mobilisés :** - (Pas encore défini)
-
+- **Langages & Libs :** Python, CSS, JavaScript 
+- **Structures de données :** HTML, Flask
+- **Concepts mobilisés :**
+    - Assistant-box
+    - Deux langues
+    - Taille texte
+    - Compte
+    - 
 ## 🚀 Installation et Utilisation
 
 Coming soon …
