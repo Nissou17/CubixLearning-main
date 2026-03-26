@@ -208,7 +208,7 @@
                     <ul>
                         <!-- Affiche "Se connecter" ou le nom + déconnexion selon la session Flask -->
                         {% if user %}
-                        <li><span style="font-weight:bold; color:#4CAF50;">👤 {{ user }}</span></li>
+                        <li><span style="display:block; width:100%; padding:10px 15px; font-weight:bold; color:#4CAF50;">👤 {{ user }}</span></li>
                         <li><a href="#" onclick="logout(); return false;" id="logout">Déconnexion</a></li>
                         {% else %}
                         <li><a id="signup" href="#" onclick="openAuthModal('login'); return false;">Se connecter</a></li>
