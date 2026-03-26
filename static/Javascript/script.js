@@ -161,10 +161,10 @@ function startInterfaceTour() {
         { id: "signup",     message: "Pour sauvegarder votre progression dans le cours, vous pouvez vous connecter ou créer un compte via le bouton Compte " },
         { id: "langues",    message: "Pour les plus bilingues d'entre vous, ce bouton permet de changer la langue du site." },
         { id: "taille-texte", message: "Si vous avez du mal à voir, pas de panique ! Ce bouton ajuste la taille du texte." },
-        { id: "card1", message: "Voici le premier cours, il vous permettra de ..." },
-        { id: "card2", message: "Vient après, le second cours, il vous permettra de ..." },
-        { id: "card3", message: "Ensuite, voici le troisième cours, il vous permettra de ..." },
-        { id: "card4", message: "Voici enfin le dernier cours proposé, il vous permettra de ..." }
+        { id: "card1", message: "Voici le premier cours, il vous permettra de comprendre l'interface, les différeentes applications comment envoyer des messages etc" },
+        { id: "card2", message: "Vient après, le second cours, il vous permettra de vous habituer à l'outil que vous utilisé actuellement, de comprendre les différentes possibilités et fonctionnalités etc" },
+        { id: "card3", message: "Ensuite, voici le troisième cours, il vous permettra de vous sortir de situation où vous pourriez vite panniquer en étant débutant, ou encore faire le beau devant vos proches ou collègues et devenir un technicien essentiel" },
+        { id: "card4", message: "Voici enfin le dernier cours proposé, il vous montrera qu'internet n'est pas tout le temps génial et que des personnes malveillantes peuvent vite arnaquer des personnes comme vous et même des fois des personnes expérimentées !" }
     ];
     let currentStep = 0;
     function nextStep() {
