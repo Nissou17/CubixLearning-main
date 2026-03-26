@@ -7,125 +7,6 @@
     <title>CubixLearning - Accueil</title>
     <link rel="icon" type="image/png" href="../static/FelixLogo.png">
     <link rel="stylesheet" href="../static/styles.css">
-    <style>
-        /* Modal Styles */
-        .modal {
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .close {
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #999;
-        }
-
-        .close:hover {
-            color: #000;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .auth-btn:hover {
-            background-color: #45a049;
-        }
-
-        .error-message {
-            color: #d32f2f;
-            font-size: 14px;
-            margin-bottom: 15px;
-            min-height: 20px;
-        }
-
-        .success-message {
-            color: #2e7d32;
-            font-size: 14px;
-            margin-bottom: 15px;
-            min-height: 20px;
-        }
-
-        .modal-body p a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-        .modal-body p a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 
 <body>
@@ -235,7 +116,6 @@
                         <select id="questions">
                             <option value="">Choisir une question</option>
                             <option value="interface">Explication de la page ?</option>
-                            <option value="motdepasse">J'ai oublié mon mot de passe</option>
                         </select>
                     </div>
                 </div>
@@ -245,7 +125,7 @@
 
                 <section id="about">
                     <h2 id="aboutTitle">À propos de CubixLearning</h2>
-                    <p id="aboutText">Bienvenue. Ce site a été conçu pour vous aider à mieux comprendre et utiliser le numérique au quotidien, 
+                    <p id="aboutText">Bienvenue, ce site a été conçu pour vous aider à mieux comprendre et utiliser le numérique au quotidien, 
                         pas à pas et sans stress. Ici, vous apprenez à réaliser des actions concrètes (envoyer un document, 
                         reconnaître un message suspect, utiliser un service en ligne), avec des explications simples et un accompagnement permanent. 
                         Vous pouvez prendre votre temps, recommencer autant que nécessaire, et vous faire aider à chaque étape.
@@ -281,8 +161,7 @@
 
                 <section id="contact">
                     <h2 id="contactTitle">Contactez-nous</h2>
-                    <p id="contactText">Pour toute question ou demande, n'hésitez pas à nous contacter.
-                        Contactez-nous à l'adresse email : <a href="mailto:contact@cubixlearning.fr">contact@cubixlearning.fr</a>
+                    <p id="contactText">Pour toute question ou demande, n'hésitez pas à nous contacter à l'adresse email : <a href="mailto:contact@cubixlearning.fr">contact@cubixlearning.fr</a>
                     </p>
                 </section>
 
