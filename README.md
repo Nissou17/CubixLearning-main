@@ -26,10 +26,10 @@ Cette section est cruciale pour le jury. Expliquez comment vous avez utilisé le
     - Deux langues
     - Taille texte
     - Compte
-    - 
+  
 ## 🚀 Installation et Utilisation
 
-Coming soon …
+Pour accéder au site lancer le main.py, un invité de commande va apparaitre, maintenez la touche contrôle (Ctrl) enfoncait et cliquer sur http://127.0.0.1:5000 puis relâché la touche Ctrl, le site va s'afficher et vous pourriez donc commencé par choisir l'explication du site dans l'assistant box en bas à gauche.
 
 
 ### 📜 Licence
