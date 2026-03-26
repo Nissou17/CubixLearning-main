@@ -72,6 +72,7 @@ header h1 {
 .search-bar {
     display: flex;
     justify-content: right;
+    margin-left: 50px;
     gap: 10px;
 }
 .search-bar input {
@@ -431,4 +432,12 @@ cursor: pointer;
 
 .modal-body p a:hover {
     text-decoration: underline;
+}
+
+.icon {
+    width: 120px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
 }
