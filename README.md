@@ -36,4 +36,4 @@ Pour accéder au site lancer le main.py, un invité de commande va apparaitre, m
 
 ### 📜 Licence
 
-Le code du projet est placé sous licence libre GPL v3+ et le texte sous licence Creative Commons CC By-Sa.
+Le code du projet est placé sous licence libre GPL v3+ et le texte sous licence Creative Commons CC By-Sa

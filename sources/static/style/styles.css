@@ -7,7 +7,11 @@
 .main-zone::before {
     content: '';
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* AJOUT DU ../ POUR SORTIR DU DOSSIER STYLE */
     background-image: url('../images/beautiful-enjoying-nature-concept.jpg'); 
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,8 +32,12 @@
 .secondary-zone::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1; 
+    /* AJOUT DU ../ POUR SORTIR DU DOSSIER STYLE */
     background-image: url('../images/juniper-branch-with-blue-berries-blurred-fern-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -37,10 +45,18 @@
     filter: blur(4px);
 }
 
+.third-zone {
+    flex: 1;
+    padding: 20px;
+    align-items: center;
+    border: none;
+}
+
 header {
-    background-color: rgba(149, 218, 194, 0.8);
+    background-color: rgba(149, 218, 194, 0.5);
     color: #ecf0f1;
     padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: #353d3b 3px solid;
     border-radius: 25px;
     display: flex;
@@ -49,133 +65,208 @@ header {
     margin-bottom: 10px;
 }
 
-header h1 { 
-    font-style: italic; 
-    font-family: cursive; 
-    font-size: 2.5em; 
-    margin: 0; 
+header h1 {
+    font-style: italic;
+    font-family: cursive;
+    text-align: left;
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: right;
+    margin-left: 50px;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 10px 15px;
+    border: #e2e5dc 7px solid;
+    border-radius: 4px;
+    width: 300px;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #c472ae;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+}
+
+.SearchBtn {
+    padding: 3px 6px;
+    background-color: rgba(226, 229, 220, 0.5);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.SearchBtn:hover {
+    background-color: #c472ae;
 }
 
 #menu {
     width: 150px;
     border: #95dac8 7px solid;
     border-radius: 25px;
-    background-color: rgba(226, 229, 220, 0.6);
+    background-color: rgba(226, 229, 220, 0.5);
     margin-right: 50px;
     padding: 20px;
+}
+
+#menu nav ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 #menu nav li {
     border: 2px solid black;
     border-radius: 8px;
     margin-bottom: 10px;
-    background-color: pink;
-    list-style: none;
+    background-color: #ffc0cb; /* Rose clair */
 }
 
 #menu nav a {
     display: block;
-    padding: 10px;
+    width: 100%;
+    padding: 10px 15px;
     text-decoration: none;
     color: black;
     font-weight: bold;
-    text-align: center;
-}
-
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    padding: 40px 60px;
-}
-
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 300px;
-    border-radius: 20px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-    border: 5px solid white;
-    text-decoration: none;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-}
-
-#card1 { background-image: url('../images/Mobile.jpg'); }
-#card2 { background-image: url('../images/Ordi.jpg'); }
-#card3 { background-image: url('../images/Panne.jpg'); }
-#card4 { background-image: url('../images/Arnaque.jpg'); }
-
-.card h4 {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    padding: 15px 0;
-    text-align: center;
-    font-family: cursive;
-    color: #2c3e50;
-    font-size: 1.2em;
-    border-top: 2px solid #95dac8;
 }
 
 #about, #contact {
     text-align: center;
     font-family: cursive;
-    background-color: rgba(236, 240, 241, 0.9);
+    font-size: 1.25em;
+    background-color: rgba(236, 240, 241, 0.5);
     border: #95dac8 5px solid;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#about {
+    padding: 7px 35px;
+    border-radius: 50px;
+    margin: 40px 65px 20px 65px;
+}
+
+#contact {
+    padding: 4px 20px;
+    border-radius: 15px;
+    margin: 20px 65px 40px 65px;
+}
+
+/* Cartes cliquables */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 40px 60px;
+    margin: 20px 40px;
+    background-color: rgba(236, 240, 241, 0.5);
     border-radius: 25px;
-    margin: 20px 65px;
-    padding: 20px;
+    border: #95dac8 5px solid;
 }
 
-#assistant { 
-    position: fixed; 
-    bottom: 20px; 
-    right: 20px; 
-    z-index: 999; 
+.card-link {
+    text-decoration: none;
+    color: inherit;
 }
 
-#mascotte { 
-    width: 110px; 
-    cursor: pointer; 
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px;
+    height: 250px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card-icon {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.card h4 {
+    text-align: center;
+    margin: 0;
+    font-family: cursive;
+    color: #2c3e50;
+}
+
+/* Assistant & Mascotte */
+#assistant {
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    z-index: 999;
+}
+
+#mascotte {
+    width: 120px;
+    cursor: pointer;
+}
+
+#assistant-box {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 200px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    display: none; /* Masqué par défaut */
+}
+
+/* Modal Authentification */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    left: 0; top: 0; 
-    width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.6);
-    align-items: center; 
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Géré par JS */
+    align-items: center;
     justify-content: center;
 }
 
-.modal-content { 
-    background: white; 
-    padding: 30px; 
-    border-radius: 15px; 
-    border: 5px solid #95dac8; 
-    width: 350px; 
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    border: 5px solid #95dac8;
 }
 
-.auth-btn { 
-    width: 100%; 
-    padding: 12px; 
-    background: #95dac8; 
-    color: white; 
-    border: none; 
-    cursor: pointer; 
-    border-radius: 8px; 
-    margin-top: 10px; 
-    font-weight: bold; 
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #95dac8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background-color: #c472ae;
 }
