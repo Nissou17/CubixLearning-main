@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubixLearning - Accueil</title>
+    <link rel="icon" type="image/png" href="../static/Felix.jpg">
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+
+<body>
+    <!-- ── Modal Login / Inscription ── -->
+    <div id="authModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Se connecter</h2>
+                <span class="close" onclick="closeAuthModal()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+
+                <!-- Onglet Connexion -->
+                <div id="loginTab" class="tab-content active">
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginUsername">Nom d'utilisateur :</label>
+                            <input type="text" id="loginUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Mot de passe :</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <div id="loginError" class="error-message"></div>
+                        <button type="submit" class="auth-btn">Se connecter</button>
+                    </form>
+                    <p style="text-align:center; margin-top:15px;">
+                        Pas de compte ? <a href="#" onclick="switchToRegister(); return false;">S'inscrire</a>
+                    </p>
+                </div>
+
+                <!-- Onglet Inscription -->
+                <div id="registerTab" class="tab-content">
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="registerUsername">Nom d'utilisateur :</label>
+                            <input type="text" id="registerUsername" required minlength="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Mot de passe :</label>
+                            <input type="password" id="registerPassword" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmer le mot de passe :</label>
+                            <input type="password" id="confirmPassword" required minlength="6">
+                        </div>
+                        <div id="registerError" class="error-message"></div>
+                        <div id="registerSuccess" class="success-message"></div>
+                        <button type="submit" class="auth-btn">S'inscrire</button>
+                    </form>
+                    <p style="text-align:center; margin-top:15px;">
+                        Déjà inscrit ? <a href="#" onclick="switchToLogin(); return false;">Se connecter</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Page principale ── -->
+    <div class="main-zone">
+        <header>
+            <img src="../static/Felix.jpg" alt="LogoSite" class="icon">
+            <h1 id="title"> Bienvenue chez CubixLearning</h1>
+            {% if user %}
+            <p style="text-align:center; color:#4CAF50; font-weight:bold;">
+                Connecté en tant que : {{ user }}
+            </p>
+            {% endif %}
+            <div id="search-bar" class="search-bar">
+                <input type="text" id="search-input" placeholder="Rechercher via Google..." onkeypress="handleSearchEnter(event)">
+                <button class="SearchBtn" onclick="searchGoogle()">🍀​</button>
+            </div>
+        </header>
+
+        <div class="secondary-zone">
+        
+            <section id="menu">
+                <nav>
+                    <ul>
+                        <!-- Affiche "Se connecter" ou le nom + déconnexion selon la session Flask -->
+                        {% if user %}
+                        <li><span style="display:block; width:100%; padding:10px 15px; font-weight:bold; color:#4CAF50;">👤 {{ user }}</span></li>
+                        <li><a href="#" onclick="logout(); return false;" id="logout">Déconnexion</a></li>
+                        {% else %}
+                        <li><a id="signup" href="#" onclick="openAuthModal('login'); return false;">Se connecter</a></li>
+                        {% endif %}
+
+                        <li><a href="#lessons" id="lessons">Leçons</a></li>
+                        <li><a href="#about" id="aboutMenu">À propos</a></li>
+                        <li><a href="#contact" id="contactMenu">Contact</a></li>
+                        <li><a id="langues" href="#" onclick="changeLanguage('fr')">🇫🇷 Français</a></li>
+                        <li><a id="langues" href="#" onclick="changeLanguage('en')">🇬🇧 English</a></li>
+                        <li>
+                            <a id="taille-texte" href="#" onclick="toggleTextSize(); return false;">Taille Texte</a>
+                            <div id="textSizeControl" style="display:none; margin-top:10px; margin-left:-20px;">
+                                <input type="range" min="14" max="30" value="16" onchange="changeTextSize(this.value)">
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div id="assistant">
+                    <img src="../static/cute_cat.gif" id="mascotte">
+                    <div id="assistant-box">
+                        <p id="assistant-text">Bonjour ! Besoin d'aide ?</p>
+                        <select id="questions">
+                            <option value="">Choisir une question</option>
+                            <option value="interface">Explication de la page ?</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <div class="third-zone">
+
+                <section id="about">
+                    <h2 id="aboutTitle">À propos de CubixLearning</h2>
+                    <p id="aboutText">Bienvenue, ce site a été conçu pour vous aider à mieux comprendre et utiliser le numérique au quotidien, 
+                        pas à pas et sans stress. Ici, vous apprenez à réaliser des actions concrètes (envoyer un document, 
+                        reconnaître un message suspect, utiliser un service en ligne), avec des explications simples et un accompagnement permanent. 
+                        Vous pouvez prendre votre temps, recommencer autant que nécessaire, et vous faire aider à chaque étape.
+                    </p>
+                </section>
+
+                <div class="cards-container">
+                    <a href="./Page1.html" class="card-link">
+                        <div id="card1" class="card">
+                            <img src="../static/images/Mobile.jpg" alt="Smartphone" class="card-icon">
+                            <h4 id="title1">1 - Enseignement orienté smartphone</h4>
+                        </div>
+                    </a>
+                    <a href="./Page2.html" class="card-link">
+                        <div id="card2" class="card">
+                            <img src="../static/images/Ordi.jpg" alt="Ordinateur" class="card-icon">
+                            <h4 id="title2">2 - Enseignement orienté ordinateur</h4>
+                        </div>
+                    </a>
+                    <a href="./Page3.html" class="card-link">
+                        <div id="card3" class="card">
+                            <img src="../static/images/Panne.jpg" alt="Dépannage" class="card-icon">
+                            <h4 id="title3">3 - Comment dépanner des petits problèmes techniques ?</h4>
+                        </div>
+                    </a>
+                    <a href="./Page4.html" class="card-link">
+                        <div id="card4" class="card">
+                            <img src="../static/images/Arnaque.jpg" alt="Sécurité" class="card-icon">
+                            <h4 id="title4">4 - Comment ne pas se faire arnaquer en ligne ?</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <section id="contact">
+                    <h2 id="contactTitle">Contactez-nous</h2>
+                    <p id="contactText">Pour toute question ou demande, n'hésitez pas à nous contacter à l'adresse email : <a href="mailto:contact@cubixlearning.fr">contact@cubixlearning.fr</a>
+                    </p>
+                </section>
+
+                <footer>
+                    <p id="footerText">&copy; 2026 CubixLearning. Tous droits réservés.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <button id="topBtn" onclick="scrollToTop()">⬆️</button>
+
+    <script src="../static/Javascript/script.js"></script>
+
+    <script>
+        // ── Ouvrir / fermer la modal ─────────────────────────────────────────
+        function openAuthModal(tab) {
+            document.getElementById('authModal').style.display = 'flex';
+            if (tab === 'register') {
+                switchToRegister();
+            } else {
+                switchToLogin();
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+            // Reset les messages
+            document.getElementById('loginError').textContent    = '';
+            document.getElementById('registerError').textContent = '';
+            document.getElementById('registerSuccess').textContent = '';
+        }
+
+        // Fermer en cliquant sur le fond
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAuthModal();
+        });
+
+        // ── Basculer entre les onglets ────────────────────────────────────────
+        function switchToLogin() {
+            document.getElementById('loginTab').classList.add('active');
+            document.getElementById('registerTab').classList.remove('active');
+            document.getElementById('authTitle').textContent = 'Se connecter';
+        }
+
+        function switchToRegister() {
+            document.getElementById('registerTab').classList.add('active');
+            document.getElementById('loginTab').classList.remove('active');
+            document.getElementById('authTitle').textContent = "S'inscrire";
+        }
+
+        // ── Connexion ─────────────────────────────────────────────────────────
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl  = document.getElementById('loginError');
+            errorEl.textContent = '';
+
+            const res  = await fetch('/login', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+
+            if (data.ok) {
+                closeAuthModal();
+                location.reload(); // Recharge la page → Flask injecte le nom dans le template
+            } else {
+                errorEl.textContent = data.msg;
+            }
+        }
+
+        // ── Inscription ───────────────────────────────────────────────────────
+        async function handleRegister(event) {
+            event.preventDefault();
+            const username  = document.getElementById('registerUsername').value.trim();
+            const password  = document.getElementById('registerPassword').value.trim();
+            const confirm   = document.getElementById('confirmPassword').value.trim();
+            const errorEl   = document.getElementById('registerError');
+            const successEl = document.getElementById('registerSuccess');
+            errorEl.textContent   = '';
+            successEl.textContent = '';
+
+            if (password !== confirm) {
+                errorEl.textContent = 'Les mots de passe ne correspondent pas.';
+                return;
+            }
+
+            const res  = await fetch('/register', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+
+            if (data.ok) {
+                successEl.textContent = data.msg;
+                setTimeout(() => switchToLogin(), 1500); // Redirige vers connexion après 1.5s
+            } else {
+                errorEl.textContent = data.msg;
+            }
+        }
+
+        // ── Déconnexion ───────────────────────────────────────────────────────
+        async function logout() {
+            await fetch('/logout');
+            location.reload();
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubixLearning - Accueil</title>
+    <link rel="stylesheet" href="../style/styles.css">
+    <script>
+        function searchGoogle() {
+            const searchInput = document.getElementById('search-input').value;
+            if (searchInput.trim() !== '') {
+                window.open('https://www.google.com/search?q=' + encodeURIComponent(searchInput), '_blank');
+            } else {
+                alert('Veuillez entrer un terme de recherche');
+            }
+        }
+        function handleSearchEnter(event) {
+            if (event.key === 'Enter') {
+                searchGoogle();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-zone">
+        <header>
+            <h1 id="title">Bienvenue chez CubixLearning</h1> 
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Rechercher via Google..." onkeypress="handleSearchEnter(event)">
+                <button class="SearchBtn" onclick="searchGoogle()">🍀​</button>
+            </div>
+        </header>
+
+        <div class="secondary-zone">
+        
+            <section id="menu">
+                <nav>
+                    <ul>
+                        
+                        <li><a href="" id="account">Se connecter</a></li>
+                        <li><a href="./main.html" id="courses">Accueil</a></li>
+                        <li><a href="#about" id="aboutMenu">À propos</a></li>
+                        <li><a href="#contact" id="contactMenu">Contact</a></li>
+                        <li><a href="#" onclick="changeLanguage('fr')">🇫🇷 Français</a></li>
+                        <li><a href="#" onclick="changeLanguage('en')">🇬🇧 English</a></li>
+                        <li><a href="#" onclick="toggleTextSize(); return false;" id="Text"> Taille Texte</a>
+                            <div id="textSizeControl" style="display:none; margin-top:10px; margin-left: -20px;">
+                                <input type="range" min="14" max="30" value="16" onchange="changeTextSize(this.value)">
+                            </div>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </nav>
+            </section>
+
+            <div class="third-zone">
+
+                
+
+                <section id="contact">
+                    <h2 id="contactTitle">Contactez-nous</h2>
+                    <p id="contactText">Pour toute question ou demande, n'hésitez pas à nous contacter.
+                      Contactez-nous à l'adresse email : cubixlearningdev@gmail.com
+                    </p>
+                </section>
+
+                <footer>
+                    <p  id="footerText" >&copy; 2026 CubixLearning. Tous droits réservés.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    function changeLanguage(lang){
+
+    localStorage.setItem("language", lang);   
+
+    if(lang === "en"){
+    document.getElementById("title").textContent = "Welcome to CubixLearning";
+    document.getElementById("account").textContent = "Login";
+    document.getElementById("courses").textContent = "Home page";
+    document.getElementById("aboutMenu").textContent = "About";
+    document.getElementById("contactMenu").textContent = "Contact";
+    document.getElementById("Text").textContent = "Text size";
+    document.getElementById("search-input").placeholder = "Search with Google...";
+    document.getElementById("contactTitle").textContent = "Contact us";
+    document.getElementById("contactText").textContent ="For any question or request, feel free to contact us at: cubixlearningdev@gmail.com";
+    document.getElementById("footerText").textContent ="© 2026 CubixLearning. All rights reserved.";
+    }
+
+    if(lang === "fr"){
+    document.getElementById("title").textContent = "Bienvenue chez CubixLearning";
+    document.getElementById("account").textContent = "Se connecter";
+    document.getElementById("courses").textContent = "Accueil";
+    document.getElementById("aboutMenu").textContent = "À propos";
+    document.getElementById("contactMenu").textContent = "Contact";
+    document.getElementById("Text").textContent = "Taille Texte";
+    document.getElementById("search-input").placeholder = "Rechercher via Google...";
+    document.getElementById("contactTitle").textContent = "Contactez-nous";
+    document.getElementById("contactText").textContent = "Pour toute question ou demande, n'hésitez pas à nous contacter. Contactez-nous à l'adresse email : cubixlearningdev@gmail.com";
+    document.getElementById("footerText").textContent ="© 2026 CubixLearning. Tous droits réservés.";
+
+    }
+
+    }
+
+    </script>
+    
+    <script>
+    
+
+    window.onload = function(){
+    let savedLanguage = localStorage.getItem("language");
+    if(savedLanguage){
+    changeLanguage(savedLanguage);
+    }
+
+    }
+
+    </script>
+
+    <button id="topBtn" onclick="scrollToTop()">⬆️</button>
+
+    
+    
+ 
+
+
+</body>
+</html>
