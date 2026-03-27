@@ -21,5 +21,14 @@ def page3():
 @app.route('/page4')
 def page4():
     return render_template('page4.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
