@@ -7,27 +7,52 @@
     <title>CubixLearning - Accueil</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
     
-    <script>
-        function searchGoogle() {
-            const searchInput = document.getElementById('search-input').value;
-            if (searchInput.trim() !== '') {
-                window.open('https://www.google.com/search?q=' + encodeURIComponent(searchInput), '_blank');
-            } else {
-                alert('Veuillez entrer un terme de recherche');
-            }
-        }
-        function handleSearchEnter(event) {
-            if (event.key === 'Enter') {
-                searchGoogle();
-            }
-        }
-    </script>
+    <style>
+        #assistant { position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; z-index: 999; }
+        #mascotte { width: 80px; cursor: pointer; }
+        #assistant-box { background: white; border: 1px solid #ccc; padding: 10px; border-radius: 10px; margin-right: 10px; display: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 200px; }
+        .modal { display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 20px; border-radius: 10px; width: 320px; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .auth-btn { width:100%; padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .auth-btn:hover { background: #45a049; }
+    </style>
 </head>
 
 <body>
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 24px;" onclick="closeAuthModal()">&times;</span>
+            <h2 id="authTitle" style="text-align: center; color: #333;">Se connecter</h2>
+            
+            <div id="loginTab">
+                <form onsubmit="handleLogin(event)">
+                    <input type="text" id="loginUsername" placeholder="Nom d'utilisateur" required style="width:100%; margin-bottom:10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="password" id="loginPassword" placeholder="Mot de passe" required style="width:100%; margin-bottom:10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <div id="loginError" style="color:red; font-size: 0.8em; margin-bottom: 10px;"></div>
+                    <button type="submit" class="auth-btn">Connexion</button>
+                </form>
+                <p style="text-align:center; font-size: 0.8em; margin-top: 15px;">Pas de compte ? <a href="#" onclick="switchToRegister()">S'inscrire ici</a></p>
+            </div>
+
+            <div id="registerTab" style="display:none;">
+                <form onsubmit="handleRegister(event)">
+                    <input type="text" id="registerUsername" placeholder="Choisir un nom" required minlength="3" style="width:100%; margin-bottom:10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="password" id="registerPassword" placeholder="Mot de passe (6+ caractères)" required minlength="6" style="width:100%; margin-bottom:10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <div id="registerError" style="color:red; font-size: 0.8em; margin-bottom: 10px;"></div>
+                    <button type="submit" class="auth-btn" style="background: #2196F3;">Créer le compte</button>
+                </form>
+                <p style="text-align:center; font-size: 0.8em; margin-top: 15px;">Déjà inscrit ? <a href="#" onclick="switchToLogin()">Se connecter</a></p>
+            </div>
+        </div>
+    </div>
+
     <div class="main-zone">
         <header>
+            <img src="{{ url_for('static', filename='images/Felix.jpg') }}" alt="Logo" style="width: 50px; border-radius: 50%;">
             <h1>Bienvenue chez CubixLearning</h1> 
+            {% if user %}
+                <p style="color: #4CAF50; font-weight: bold; text-align: center; background: #e8f5e9; padding: 5px; border-radius: 5px; display: inline-block;">👤 Connecté : {{ user }}</p>
+            {% endif %}
             <div class="search-bar">
                 <input type="text" id="search-input" placeholder="Rechercher via Google..." onkeypress="handleSearchEnter(event)">
                 <button class="SearchBtn" onclick="searchGoogle()">🍀​</button>
@@ -35,61 +60,76 @@
         </header>
 
         <div class="secondary-zone">
-        
             <section id="menu">
                 <nav>
                     <ul>
-                        <li><a href="">Compte</a></li>
+                        {% if user %}
+                            <li><a href="#" onclick="logout(); return false;" style="color: #f44336; font-weight: bold;">Déconnexion</a></li>
+                        {% else %}
+                            <li><a href="#" onclick="openAuthModal('login'); return false;">Compte</a></li>
+                        {% endif %}
+                        
                         <li><a href="#courses">Cours</a></li>
                         <li><a href="#about">À propos</a></li>
                         <li><a href="#contact">Contact</a></li>
-                        <li><a href="">Langues</a></li>
-                        <li><a href="">Taille Texte</a></li>
+                        <li><a href="#" onclick="alert('Fonctionnalité bientôt disponible !'); return false;">🇫🇷 Langues</a></li>
+                        <li><a href="#" onclick="toggleTextSize(); return false;">📏 Taille Texte</a></li>
                     </ul>
                 </nav>
+
+                <div id="assistant">
+                    <div id="assistant-box">
+                        <p id="assistant-text" style="margin: 0; font-size: 0.9em;">Bonjour ! Besoin d'aide pour naviguer ?</p>
+                        <select onchange="handleAssistant(this.value)" style="margin-top:5px; font-size: 0.8em; width: 100%;">
+                            <option value="">Choisir une question...</option>
+                            <option value="site">C'est quoi CubixLearning ?</option>
+                            <option value="login">Comment m'inscrire ?</option>
+                            <option value="contact">Comment vous contacter ?</option>
+                        </select>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/cute_cat.gif') }}" id="mascotte" onclick="toggleAssistant()" title="Besoin d'aide ?">
+                </div>
             </section>
 
             <div class="third-zone">
+                <section id="about">
+                    <h2>À propos de CubixLearning</h2>
+                    <p>Bienvenue. Ce site a été conçu pour vous aider à mieux comprendre et utiliser le numérique au quotidien, pas à pas et sans stress.</p>
+                </section>
 
-                    <section id="about">
-                        <h2>À propos de CubixLearning</h2>
-                        <p>Bienvenue. Ce site a été conçu pour vous aider à mieux comprendre et utiliser le numérique au quotidien...
-                        </p>
-                    </section>
+                <div class="cards-container" id="courses">
+                    <a href="/page1" class="card-link">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='images/Mobile.jpg') }}" alt="Smartphone" class="card-icon">
+                            <h4>1 - Enseignement orienté smartphone</h4>
+                        </div>
+                    </a>
+                    
+                    <a href="/page2" class="card-link">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='images/Ordi.jpg') }}" alt="Ordinateur" class="card-icon">
+                            <h4>2 - Enseignement orienté ordinateur</h4>
+                        </div>
+                    </a>
 
-                    <div class="cards-container">
-                        <a href="/page1" class="card-link">
-                            <div class="card">
-                                <img src="{{ url_for('static', filename='images/6b9bf36bcc6f4192f94fb354e2e0bf2d.jpg') }}" alt="Smartphone" class="card-icon">
-                                <h4>1 - Enseignement orienté smartphone</h4>
-                            </div>
-                        </a>
-                        
-                        <a href="/page2" class="card-link">
-                            <div class="card">
-                                <img src="{{ url_for('static', filename='images/ab6c7ecf5313d1e07c3d6495d468e6ca.jpg') }}" alt="Ordinateur" class="card-icon">
-                                <h4>2 - Enseignement orienté ordinateur</h4>
-                            </div>
-                        </a>
+                    <a href="/page3" class="card-link">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='images/Panne.jpg') }}" alt="Dépannage" class="card-icon">
+                            <h4>3 - Dépannage technique</h4>
+                        </div>
+                    </a>
 
-                        <a href="/page3" class="card-link">
-                            <div class="card">
-                                <img src="{{ url_for('static', filename='images/286231b2a6f478e8032b32a4339cc19d.jpg') }}" alt="Dépannage" class="card-icon">
-                                <h4>3 - Comment dépanner des petits problèmes techniques ?</h4>
-                            </div>
-                        </a>
-
-                        <a href="/page4" class="card-link">
-                            <div class="card">
-                                <img src="{{ url_for('static', filename='images/1a3e483836f07bbc7357bcec88d1bd08.jpg') }}" alt="Sécurité" class="card-icon">
-                                <h4>4 - Comment ne pas se faire arnaquer en ligne ?</h4>
-                            </div>
-                        </a>
-                    </div>
+                    <a href="/page4" class="card-link">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='images/Arnaque.jpg') }}" alt="Sécurité" class="card-icon">
+                            <h4>4 - Sécurité et Arnaques</h4>
+                        </div>
+                    </a>
+                </div>
 
                 <section id="contact">
                     <h2>Contactez-nous</h2>
-                    <p>Pour toute question ou demande, n'hésitez pas à nous contacter : cubixlearningdev@gmail.com</p>
+                    <p>Contact : <strong>cubixlearningdev@gmail.com</strong></p>
                 </section>
 
                 <footer>
@@ -99,5 +139,58 @@
         </div>
     </div>
 
+    <script>
+        function searchGoogle() {
+            const val = document.getElementById('search-input').value;
+            if (val) window.open('https://www.google.com/search?q=' + encodeURIComponent(val), '_blank');
+        }
+        function handleSearchEnter(e) { if (e.key === 'Enter') searchGoogle(); }
+
+        function openAuthModal(t) { document.getElementById('authModal').style.display='flex'; t==='login'?switchToLogin():switchToRegister(); }
+        function closeAuthModal() { document.getElementById('authModal').style.display='none'; }
+        function switchToLogin() { document.getElementById('loginTab').style.display='block'; document.getElementById('registerTab').style.display='none'; document.getElementById('authTitle').innerText='Se connecter'; }
+        function switchToRegister() { document.getElementById('loginTab').style.display='none'; document.getElementById('registerTab').style.display='block'; document.getElementById('authTitle').innerText="S'inscrire"; }
+
+        function toggleAssistant() {
+            const box = document.getElementById('assistant-box');
+            box.style.display = (box.style.display === 'none' || box.style.display === '') ? 'block' : 'none';
+        }
+        function handleAssistant(val) {
+            const txt = document.getElementById('assistant-text');
+            if (val === 'site') txt.innerText = "C'est une plateforme d'aide au numérique pour tous !";
+            if (val === 'login') txt.innerText = "Clique sur 'Compte' puis 'S'inscrire'.";
+            if (val === 'contact') txt.innerText = "Regarde en bas de la page, notre email y est !";
+        }
+
+        let isBig = false;
+        function toggleTextSize() {
+            document.body.style.fontSize = isBig ? '16px' : '22px';
+            isBig = !isBig;
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const res = await fetch('/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: document.getElementById('loginUsername').value, password: document.getElementById('loginPassword').value})
+            });
+            const data = await res.json();
+            if(data.ok) location.reload(); else document.getElementById('loginError').innerText = data.msg;
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const res = await fetch('/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: document.getElementById('registerUsername').value, password: document.getElementById('registerPassword').value})
+            });
+            const data = await res.json();
+            if(data.ok) { alert('Compte créé ! Connectez-vous.'); switchToLogin(); } else { document.getElementById('registerError').innerText = data.msg; }
+        }
+
+        async function logout() { await fetch('/logout'); location.reload(); }
+    </script>
 </body>
 </html>
