@@ -2,53 +2,97 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Quiz Services en ligne</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Dépannage - CubixLearning</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
-    <style>
-        .quiz-container { display: none; background: white; color: black; padding: 20px; border-radius: 15px; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .option { display: block; background: #fff5e6; margin: 10px 0; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; border: 1px solid #f39c12; }
-        .option:hover { background: #f39c12; color: white; transform: scale(1.02); }
-        .btn-quiz { background: #f39c12; color: white; padding: 20px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.2em; margin: 20px; }
-    </style>
 </head>
 <body>
     <div class="main-zone">
+        <header>
+            <img src="{{ url_for('static', filename='images/Felix.jpg') }}" alt="Logo" style="width: 50px; border-radius: 50%;">
+            <h1>3 - Module Dépannage</h1>
+        </header>
+
         <div class="secondary-zone">
-            <div class="third-zone" style="text-align: center;">
-                <h1>🛠️ Services & Internet</h1>
-                <p>Apprenez à gérer vos rendez-vous et vos réglages.</p>
+            <div id="menu">
+                <nav>
+                    <ul>
+                        <li><a href="/">Accueil</a></li>
+                        <li><a href="/page1">Smartphone</a></li>
+                        <li><a href="/page2">Ordinateur</a></li>
+                        <li><a href="/page4">Sécurité</a></li>
+                    </ul>
+                </nav>
+            </div>
 
-                <button class="btn-quiz" onclick="startQuiz()">🚀 Lancer le Quiz Services</button>
-
-                <div id="quiz" class="quiz-container">
-                    <div id="question-text" style="font-weight: bold; font-size: 1.1em; margin-bottom: 15px; color: #2c3e50;"></div>
-                    <div id="options"></div>
-                    <p id="feedback" style="margin-top:15px; font-weight:bold;"></p>
+            <div class="third-zone">
+                <div id="about">
+                    <h2>🔧 Quiz Dépannage</h2>
+                    <p>Que faire quand rien ne marche ? Apprenez les bons réflexes.</p>
                 </div>
 
-                <div style="margin-top: 30px;"><a href="/" style="color: white; text-decoration: none;">⬅ Retour à l'accueil</a></div>
+                <div class="cards-container" style="display: block; text-align: center; padding: 40px;">
+                    <button class="btn-quiz" onclick="startQuiz()" style="background: #e67e22; color: white; padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1em;">🚀 Lancer le Quiz</button>
+
+                    <div id="quiz" style="display: none; background: white; color: black; padding: 20px; border-radius: 15px; margin-top: 20px; text-align: left; border: 3px solid #95dac8;">
+                        <div id="question-text" style="font-weight: bold; margin-bottom: 10px; color: #2c3e50;"></div>
+                        <div id="options"></div>
+                        <p id="feedback" style="margin-top:10px; font-weight:bold;"></p>
+                    </div>
+                </div>
+
+                <div id="contact">
+                    <a href="/" style="text-decoration: none; color: inherit; font-weight: bold;">⬅ Retour à l'accueil</a>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         const questions = [
-            { q: "On vous dit de prendre rendez-vous chez le médecin sur Internet. Quel site utilisez-vous ?", options: ["Facebook", "Doctolib ou le site du cabinet", "Google Maps"], correct: 1 },
-            { q: "Votre mot de passe Wi-Fi est trop long. Pouvez-vous le simplifier ?", options: ["Oui, via l'interface de gestion de la Box", "Non, c'est interdit par le fournisseur", "Il faut racheter une nouvelle Box"], correct: 0 }
+            {
+                q: "Si un logiciel bugue, quel est le premier réflexe ?",
+                options: ["Jeter l'ordinateur", "Redémarrer l'application ou l'appareil", "Appeler la police"],
+                correct: 1
+            }
         ];
         let currentQ = 0;
-        function startQuiz() { document.querySelector('.btn-quiz').style.display = 'none'; document.getElementById('quiz').style.display = 'block'; showQuestion(); }
-        function showQuestion() {
-            const q = questions[currentQ]; document.getElementById('question-text').innerText = q.q;
-            const optionsDiv = document.getElementById('options'); optionsDiv.innerHTML = '';
-            q.options.forEach((opt, i) => { const b = document.createElement('div'); b.className = 'option'; b.innerText = opt; b.onclick = () => check(i); optionsDiv.appendChild(b); });
+        function startQuiz() {
+            document.querySelector('.btn-quiz').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            showQuestion();
         }
-        function check(i) {
-            const f = document.getElementById('feedback');
-            if(i === questions[currentQ].correct) { f.innerText = "✅ Bravo !"; f.style.color = "green"; currentQ++; 
-                if(currentQ < questions.length) { setTimeout(() => { f.innerText = ""; showQuestion(); }, 1000); }
-                else { document.getElementById('quiz').innerHTML = "<h2>🎉 Quiz Services Terminé !</h2>"; }
-            } else { f.innerText = "❌ Réessayez !"; f.style.color = "red"; }
+        function showQuestion() {
+            const q = questions[currentQ];
+            document.getElementById('question-text').innerText = q.q;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('div');
+                btn.style = "background: #f0f0f0; margin: 5px 0; padding: 10px; border-radius: 5px; cursor: pointer;";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index);
+                optionsDiv.appendChild(btn);
+            });
+        }
+        function checkAnswer(index) {
+            const feedback = document.getElementById('feedback');
+            if(index === questions[currentQ].correct) {
+                feedback.innerText = "✅ Bravo !";
+                feedback.style.color = "green";
+                setTimeout(() => {
+                    currentQ++;
+                    if(currentQ < questions.length) {
+                        feedback.innerText = "";
+                        showQuestion();
+                    } else {
+                        document.getElementById('quiz').innerHTML = "<h2>🎉 Quiz terminé !</h2>";
+                    }
+                }, 1500);
+            } else {
+                feedback.innerText = "❌ Réessayez !";
+                feedback.style.color = "red";
+            }
         }
     </script>
 </body>

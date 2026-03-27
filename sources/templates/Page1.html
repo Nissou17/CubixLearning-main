@@ -2,32 +2,47 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Smartphone - CubixLearning</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
-    <style>
-        .quiz-container { display: none; background: white; color: black; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: left; }
-        .question { font-weight: bold; margin-bottom: 10px; color: #2c3e50; }
-        .option { display: block; background: #f0f0f0; margin: 5px 0; padding: 10px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
-        .option:hover { background: #95dac8; }
-        .btn-quiz { background: #ffcc00; color: #2c3e50; padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1em; }
-    </style>
 </head>
 <body>
     <div class="main-zone">
-        <div class="secondary-zone">
-            <div class="third-zone">
-                <h1>📱 Module Smartphone</h1>
-                
-                <button class="btn-quiz" onclick="startQuiz()">🚀 Lancer le Quiz du Smartphone</button>
+        <header>
+            <img src="{{ url_for('static', filename='images/Felix.jpg') }}" alt="Logo" style="width: 50px; border-radius: 50%;">
+            <h1>1 - Module Smartphone</h1>
+        </header>
 
-                <div id="quiz" class="quiz-container">
-                    <div id="question-text" class="question"></div>
-                    <div id="options"></div>
-                    <p id="feedback" style="margin-top:10px; font-weight:bold;"></p>
+        <div class="secondary-zone">
+            <div id="menu">
+                <nav>
+                    <ul>
+                        <li><a href="/">Accueil</a></li>
+                        <li><a href="/page2">Ordinateur</a></li>
+                        <li><a href="/page3">Dépannage</a></li>
+                        <li><a href="/page4">Sécurité</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="third-zone">
+                <div id="about">
+                    <h2>📱 Quiz Smartphone</h2>
+                    <p>Testez vos connaissances sur l'utilisation du téléphone portable.</p>
                 </div>
 
-                <div style="margin-top: 30px;">
-                    <a href="/" class="SearchBtn" style="text-decoration: none; color: white;">⬅ Retour</a>
+                <div class="cards-container" style="display: block; text-align: center; padding: 40px;">
+                    <button class="btn-quiz" onclick="startQuiz()" style="background: #ffcc00; color: #2c3e50; padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1em;">🚀 Lancer le Quiz</button>
+
+                    <div id="quiz" style="display: none; background: white; color: black; padding: 20px; border-radius: 15px; margin-top: 20px; text-align: left; border: 3px solid #95dac8;">
+                        <div id="question-text" style="font-weight: bold; margin-bottom: 10px; color: #2c3e50;"></div>
+                        <div id="options"></div>
+                        <p id="feedback" style="margin-top:10px; font-weight:bold;"></p>
+                    </div>
+                </div>
+
+                <div id="contact">
+                    <a href="/" style="text-decoration: none; color: inherit; font-weight: bold;">⬅ Retour à l'accueil</a>
                 </div>
             </div>
         </div>
@@ -36,24 +51,20 @@
     <script>
         const questions = [
             {
-                q: "Votre ordinateur n'a pas internet. Comment utiliser votre téléphone pour le connecter ?",
+                q: "Comment utiliser votre téléphone pour connecter votre ordinateur à internet ?",
                 options: ["Activer le partage de connexion", "Mettre le mode avion", "Éteindre le téléphone"],
-                correct: 0,
-                img: "partage_connexion.jpg"
+                correct: 0
             },
             {
                 q: "Vous envoyez un message privé sur Facebook. Qui peut le voir ?",
                 options: ["Tout le monde", "Seulement le destinataire", "Tous mes amis"],
-                correct: 1,
-                img: "fb_prive.jpg"
+                correct: 1
             },
             {
-                q: "Au restaurant, comment voir la carte avec le petit carré noir et blanc (QR Code) ?",
-                options: ["Prendre une photo normale", "Ouvrir l'appareil photo et viser le code", "Taper le nom du resto sur Google"],
-                correct: 1,
-                img: "qr_code.jpg"
+                q: "Comment scanner un QR Code au restaurant ?",
+                options: ["Prendre une photo normale", "Viser le code avec l'appareil photo", "Taper le nom sur Google"],
+                correct: 1
             }
-            // Tu peux ajouter les autres questions ici sur le même modèle
         ];
 
         let currentQ = 0;
@@ -66,14 +77,14 @@
 
         function showQuestion() {
             const q = questions[currentQ];
-            document.getElementById('question-text').innerHTML = q.q;
+            document.getElementById('question-text').innerText = q.q;
             const optionsDiv = document.getElementById('options');
             optionsDiv.innerHTML = '';
             
             q.options.forEach((opt, index) => {
                 const btn = document.createElement('div');
-                btn.className = 'option';
-                btn.innerHTML = opt;
+                btn.style = "background: #f0f0f0; margin: 5px 0; padding: 10px; border-radius: 5px; cursor: pointer;";
+                btn.innerText = opt;
                 btn.onclick = () => checkAnswer(index);
                 optionsDiv.appendChild(btn);
             });
@@ -82,19 +93,19 @@
         function checkAnswer(index) {
             const feedback = document.getElementById('feedback');
             if(index === questions[currentQ].correct) {
-                feedback.innerHTML = "✅ Bravo ! C'est la bonne réponse.";
+                feedback.innerText = "✅ Bravo !";
                 feedback.style.color = "green";
                 setTimeout(() => {
                     currentQ++;
                     if(currentQ < questions.length) {
-                        feedback.innerHTML = "";
+                        feedback.innerText = "";
                         showQuestion();
                     } else {
-                        document.getElementById('quiz').innerHTML = "<h2>🎉 Quiz terminé ! Vous êtes un pro du smartphone.</h2>";
+                        document.getElementById('quiz').innerHTML = "<h2>🎉 Quiz terminé !</h2>";
                     }
-                }, 2000);
+                }, 1500);
             } else {
-                feedback.innerHTML = "❌ Dommage... Réessayez !";
+                feedback.innerText = "❌ Réessayez !";
                 feedback.style.color = "red";
             }
         }
